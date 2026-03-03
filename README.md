@@ -1,75 +1,76 @@
-# Sarvam AI Skill for OpenClaw
+# 🇮🇳 Indic AI Skills
 
-Complete Indian language AI suite for OpenClaw - Text-to-Speech, Speech-to-Text, Translation, Transliteration, and Document Intelligence.
+> **A curated collection of AI skills for Indian languages and services**
 
-[![GitHub](https://img.shields.io/badge/GitHub-ankitjh4%2Fsarvam--ai--skill-blue)](https://github.com/ankitjh4/sarvam-ai-skill)
-[![Sarvam AI](https://img.shields.io/badge/Sarvam%20AI-Docs-green)](https://docs.sarvam.ai)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## Features
+A growing collection of OpenClaw skills for Indian AI providers and services. Built for developers working with Indian languages, data, and platforms.
 
-- **Bulbul v3 TTS** - 30+ speaker voices, 11 Indian languages, 2500 char limit
-- **Saarika STT** - Real-time, batch, and streaming transcription
-- **Text Translation** - 22 scheduled Indian languages
-- **Transliteration** - Script conversion preserving pronunciation
-- **Document Intelligence** - PDF text extraction
-- **Chat Completions** - Sarvam LLM API
+---
 
-## Installation
+## 📦 Available Skills
 
-### Prerequisites
+| Skill | Provider | Description |
+|-------|----------|-------------|
+| **sarvam-ai** | Sarvam AI | Indian language TTS, STT, translation, and document intelligence |
 
-Install the official Sarvam Python SDK:
+*More skills coming soon...*
 
-```bash
-pip install sarvamai
-```
+---
 
-### OpenClaw Installation
+## 🚀 Quick Start
+
+### Install a Skill
 
 ```bash
-# Via vett
-vett add ankitjh4/sarvam-ai-skill
-
-# Or manual
+# Install Sarvam AI skill
 mkdir -p ~/.openclaw/skills/sarvam-ai
-curl -o ~/.openclaw/skills/sarvam-ai/SKILL.md https://raw.githubusercontent.com/ankitjh4/sarvam-ai-skill/main/SKILL.md
+curl -o ~/.openclaw/skills/sarvam-ai/SKILL.md \
+  https://raw.githubusercontent.com/ankitjh4/indic-ai-skills/main/skills/sarvam-ai/SKILL.md
 ```
 
-## Configuration
+### Using with OpenClaw
 
-Set your API key:
+Once installed, OpenClaw will automatically load the skill and make its capabilities available.
 
-```bash
-export SARVAM_API_KEY="your-api-key-here"
+---
+
+## 📁 Repository Structure
+
+```
+indic-ai-skills/
+├── skills/
+│   ├── sarvam-ai/
+│   │   ├── SKILL.md      # Complete skill documentation
+│   │   └── README.md     # Quick reference
+│   └── [future-skills]/  # More skills coming...
+├── LICENSE               # MIT License
+└── README.md            # This file
 ```
 
-Get your API key at: [dashboard.sarvam.ai](https://dashboard.sarvam.ai)
+Each skill is self-contained with its own:
+- `SKILL.md` - Full documentation and code examples
+- `README.md` - Quick start guide
 
-## Quick Start
+---
 
-```python
-from sarvamai import SarvamAI
+## 🤝 Contributing
 
-client = SarvamAI(api_subscription_key=os.environ["SARVAM_API_KEY"])
+Want to add a skill for an Indian AI provider?
 
-# TTS
-client.text_to_speech.convert(
-    text="नमस्ते, आप कैसे हैं?",
-    target_language_code="hi-IN",
-    speaker="meera"
-)
+1. Create a new folder in `skills/`
+2. Add `SKILL.md` with complete documentation
+3. Add `README.md` with quick start
+4. Submit a PR
 
-# STT
-client.speech_to_text.transcribe(
-    file=open("audio.wav", "rb"),
-    language_code="hi-IN"
-)
-```
+---
 
-## Documentation
+## 📝 License
 
-See [SKILL.md](./SKILL.md) for complete API reference.
+MIT License - See [LICENSE](LICENSE)
 
-## License
+---
 
-MIT
+**Made with ❤️ in India** | **Jai Hind! 🇮🇳**
+
+*Built by Ankit & Bug Bug Bot (Kimi K2.5)*
