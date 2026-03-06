@@ -1,41 +1,40 @@
 ---
 name: zomato
-description: Zomato food delivery API integration. Search restaurants, get menus, place orders, and manage deliveries.
+description: Restaurant search and data from Zomato. Note: Zomato API now requires partnership approval. Use --api-key parameter if you have access.
 metadata:
-  author: ankitjh4
+  author: buckbuckbot
   category: Food
-  display-name: Zomato Food Delivery
 ---
 
-# Zomato Integration
+# Zomato Restaurant API
 
-Access Zomato's food delivery and restaurant data.
+Search restaurants, get menus, and restaurant details via Zomato API.
+
+**Note:** Zomato's public API is now restricted. You need a partner API key.
 
 ## Setup
 
-1. Get API key: https://developers.zomato.com/api
-2. Add to Zo secrets: `ZOMATO_API_KEY`
-
-## Features
-
-- Restaurant search by location, cuisine, rating
-- Menu fetching
-- Order management
-- Delivery tracking
+1. Apply for API access at [Zomato for Partners](https://developers.zomato.com/api)
+2. Add `ZOMATO_API_KEY` in [Settings → Advanced](/?t=settings&s=advanced)
+   OR pass `--api-key` directly
 
 ## Usage
 
 ```bash
-# Search restaurants
-python3 scripts/zomato.py search --city Delhi --cuisine Chinese
+# Search restaurants in a city
+python3 scripts/zomato.py search --city "Mumbai" --cuisine "Chinese"
 
 # Get restaurant details
-python3 scripts/zomato.py restaurant --id 123456
+python3 scripts/zomato.py restaurant --res_id 18456
 
-# Get menu
-python3 scripts/zomato.py menu --restaurant-id 123456
+# Get city ID
+python3 scripts/zomato.py city --name "Delhi"
+
+# Get cuisine list
+python3 scripts/zomato.py cuisines --city_id 1
 ```
 
-## API Docs
+## API Endpoints
 
-https://developers.zomato.com/api
+- Base: `https://developers.zomato.com/api/v2.1`
+- Header: `user-key: {API_KEY}`

@@ -1,41 +1,37 @@
 ---
 name: razorpay
-description: Razorpay payment gateway integration. Process payments, manage subscriptions, handle refunds.
+description: Accept payments in India using Razorpay payment gateway. Supports UPI, cards, netbanking, wallets. Requires RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET in Settings.
 metadata:
-  author: ankitjh4
+  author: buckbuckbot
   category: Payments
-  display-name: Razorpay Payments
 ---
 
-# Razorpay Integration
+# Razorpay Payment Integration
 
-Accept payments via Razorpay - India's payment gateway.
+Accept payments in India via UPI, cards, netbanking, and wallets using Razorpay.
 
 ## Setup
 
-1. Get API keys: https://dashboard.razorpay.com/app/keys
-2. Add to Zo secrets: `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`
-
-## Features
-
-- Create payment links
-- Process refunds
-- Manage subscriptions
-- Fetch transaction history
+1. Get API keys from [Razorpay Dashboard](https://dashboard.razorpay.com/app/keys)
+2. Add secrets in [Settings → Advanced](/?t=settings&s=advanced):
+   - `RAZORPAY_KEY_ID` = your key id (e.g., `rzp_test_xxxx`)
+   - `RAZORPAY_KEY_SECRET` = your key secret
 
 ## Usage
 
 ```bash
-# Create payment link
-python3 scripts/razorpay.py create-payment --amount 50000 --currency INR --description "Test Payment"
+# Create payment order
+python3 scripts/razorpay.py create-order --amount 10000 --currency INR
 
-# List payments
-python3 scripts/razorpay.py payments --status captured
+# Check payment status
+python3 scripts/razorpay.py status --order_id order_xxxx
 
-# Process refund
-python3 scripts/razorpay.py refund --payment-id pay_xxx
+# Create refund
+python3 scripts/razorpay.py refund --payment_id pay_xxxx --amount 5000
 ```
 
-## API Docs
+## Endpoints Used
 
-https://razorpay.com/docs/api/
+- Base: `https://api.razorpay.com/v1`
+- Auth: Basic Auth (base64(KEY_ID:KEY_SECRET))
+- Orders API, Payments API, Refunds API

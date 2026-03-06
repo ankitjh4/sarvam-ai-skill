@@ -1,43 +1,37 @@
 ---
 name: irctc
-description: IRCTC train ticket booking and PNR status checking. Search trains, check availability, book tickets.
+description: Indian Railway train search, PNR status, seat availability using RailwayAPI. Requires RAILWAYAPI_KEY in Settings.
 metadata:
-  author: ankitjh4
+  author: buckbuckbot
   category: Travel
-  display-name: IRCTC Train Booking
 ---
 
-# IRCTC Integration
+# IRCTC / Indian Railway API
 
-Book train tickets and check PNR status via IRCTC.
+Check PNR status, train schedules, seat availability, and live train status.
 
 ## Setup
 
-1. Get API credentials: https://irctc.co.in
-2. Add to Zo secrets: `IRCTC_USERNAME`, `IRCTC_PASSWORD`, `IRCTC_API_KEY`
-
-## Features
-
-- Search trains between stations
-- Check seat availability
-- Book tickets
-- Check PNR status
-- Get train schedule
-- Live train status
+1. Get API key from [RailwayAPI](https://railwayapi.com/) (free tier available)
+2. Add `RAILWAYAPI_KEY` in [Settings → Advanced](/?t=settings&s=advanced)
 
 ## Usage
 
 ```bash
-# Search trains
-python3 scripts/irctc.py trains --from NDLS --to BSB --date 2026-04-01
+# Check PNR status
+python3 scripts/irctc.py pnr --pnr 1234567890
 
-# Check PNR
-python3 scripts/irctc.py pnr-status --pnr 1234567890
+# Search trains between stations
+python3 scripts/irctc.py trains --from NDLS --to BNC --date 07032026
 
-# Check availability
-python3/scripts/irctc.py availability --train 12560 --date 2026-04-01 --class 3A
+# Check seat availability
+python3 scripts/irctc.py availability --train 12002 --from NDLS --to BNC --date 07032026 --class 3A
+
+# Live train status
+python3 scripts/irctc.py live --train 12002 --date 07032026
 ```
 
-## API Docs
+## API Endpoints
 
-https://www.irctc.co.in/eticketing/
+- Base: `https://api.railwayapi.com/v2`
+- Auth: Query param `apikey/{API_KEY}`

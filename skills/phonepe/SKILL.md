@@ -1,42 +1,38 @@
 ---
 name: phonepe
-description: PhonePe UPI payment integration. Send/receive money, check balance, bill payments.
+description: Accept UPI payments in India using PhonePe. Supports UPI Collect, Payment Links, and checkout. Requires PHONEPE_MERCHANT_ID and PHONEPE_SALT_KEY in Settings.
 metadata:
-  author: ankitjh4
+  author: buckbuckbot
   category: Payments
-  display-name: PhonePe UPI
 ---
 
-# PhonePe Integration
+# PhonePe UPI Payment Integration
 
-Access PhonePe's UPI and payment services.
+Accept UPI payments in India via PhonePe.
 
 ## Setup
 
-1. Get Merchant ID: https://business.phonepe.com/
-2. Add to Zo secrets: `PHONEPE_MERCHANT_ID`, `PHONEPE_SALT_KEY`, `PHONEPE_SALT_INDEX`
-
-## Features
-
-- UPI payments (send/receive)
-- Check account balance
-- Bill payments
-- Transaction history
-- Mobile recharge
+1. Register at [PhonePe Business](https://business.phonepe.com/)
+2. Get Merchant ID and Salt Key from dashboard
+3. Add secrets in [Settings → Advanced](/?t=settings&s=advanced):
+   - `PHONEPE_MERCHANT_ID` = your merchant ID
+   - `PHONEPE_SALT_KEY` = your salt key
+   - `PHONEPE_ENV` = sandbox (or `production`)
 
 ## Usage
 
 ```bash
-# Check balance
-python3 scripts/phonepe.py balance
+# Create payment link
+python3 scripts/phonepe.py payment-link --amount 10000 --phone 919999999999 --name "Customer Name"
 
-# Send UPI payment
-python3 scripts/phonepe.py pay --upi-id user@upi --amount 500
+# Check payment status
+python3 scripts/phonepe.py status --merchant_order_id order_123
 
-# Transaction history
-python3 scripts/phonepe.py transactions --limit 10
+# Validate UPI address
+python3 scripts/phonepe.py validate-vpa --vpa success@ybl
 ```
 
-## API Docs
+## Endpoints
 
-https://developer.phonepe.com/
+- Sandbox: `https://api-preprod.phonepe.com`
+- Production: `https://api.phonepe.com`
