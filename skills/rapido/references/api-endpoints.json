@@ -1,0 +1,303 @@
+{
+  "authentication": {
+    "generate_otp": {
+      "method": "POST",
+      "endpoint": "/pwa/api/auth/generateOtp",
+      "description": "Generate OTP for mobile number login",
+      "request": {
+        "mobile": "string",
+        "hash": "string (timestamp:sha256)",
+        "recaptchaToken": "string (optional)"
+      },
+      "response": {
+        "info": { "status": "success" },
+        "data": {}
+      }
+    },
+    "verify_otp": {
+      "method": "POST",
+      "endpoint": "/pwa/api/auth/verifyOtp",
+      "description": "Verify OTP and get auth token",
+      "request": {
+        "mobileNumber": "string",
+        "otp": "string (6 digits)"
+      },
+      "response": {
+        "info": { "status": "success" },
+        "data": {
+          "token": "JWT token",
+          "userId": "user ID"
+        }
+      }
+    }
+  },
+  "location": {
+    "autocomplete": {
+      "method": "POST",
+      "endpoint": "/pwa/api/unup/autocomplete/location",
+      "description": "Autocomplete location search",
+      "authenticated": false,
+      "request": {
+        "searchWord": "string"
+      },
+      "response": {
+        "data": [
+          {
+            "placeId": "Google Place ID",
+            "description": "Full address",
+            "name": "Location name"
+          }
+        ]
+      }
+    },
+    "geocode_place_id": {
+      "method": "POST",
+      "endpoint": "/pwa/api/unup/location/geocode/placeId",
+      "description": "Convert place ID to lat/lng",
+      "authenticated": false,
+      "request": {
+        "placeId": "string"
+      },
+      "response": {
+        "data": {
+          "lat": "number",
+          "lng": "number",
+          "address": "string"
+        }
+      }
+    },
+    "services": {
+      "method": "POST",
+      "endpoint": "/pwa/api/location/services",
+      "description": "Get available ride services at location",
+      "request": {
+        "lat": "number",
+        "lng": "number"
+      },
+      "response": {
+        "data": {
+          "data": [
+            {
+              "_id": "service ID",
+              "displayName": "Bike/Auto/Cab",
+              "baseFare": "number",
+              "pricePerKm": "number"
+            }
+          ]
+        }
+      }
+    },
+    "eta_recursive": {
+      "method": "POST",
+      "endpoint": "/pwa/api/location/eta/recursive",
+      "description": "Get ETA and available riders (polled repeatedly)",
+      "note": "Called 138 times during typical session",
+      "request": {
+        "pickupLocation": {
+          "lat": "number",
+          "lng": "number",
+          "displayName": "string",
+          "address": "string"
+        },
+        "dropLocation": { "..." : "same as pickup" }
+      },
+      "response": {
+        "data": {
+          "services": {
+            "serviceId": {
+              "riders": ["riderId1", "riderId2"]
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "fare_estimate": {
+      "method": "POST",
+      "endpoint": "/pwa/api/pricing/getFareEstimate",
+      "description": "Get detailed fare estimates",
+      "request": {
+        "pickupLocation": {
+          "lat": "number",
+          "lng": "number",
+          "displayName": "string",
+          "address": "string"
+        },
+        "dropLocation": { "..." : "same structure" }
+      },
+      "response": {
+        "data": {
+          "requestId": "string",
+          "timeInMts": "string (decimal)",
+          "quotes": [
+            {
+              "serviceId": "string",
+              "serviceName": "Rapido Bike/Auto",
+              "fare": "number",
+              "distance": "string (km)",
+              "duration": "string (minutes)"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "booking": {
+    "book_ride": {
+      "method": "POST",
+      "endpoint": "/pwa/api/order/book",
+      "description": "Book a ride",
+      "request": {
+        "pickupLocation": { "...": "location object" },
+        "dropLocation": { "...": "location object" },
+        "serviceDetailId": "string",
+        "paymentMethod": "cod|rapido_wallet|upi|card",
+        "userId": "string"
+      },
+      "response": {
+        "data": {
+          "orderId": "string",
+          "status": "dispatch|confirmed|ongoing",
+          "nudgeConfig": "array"
+        }
+      }
+    },
+    "cancel_ride": {
+      "method": "POST",
+      "endpoint": "/pwa/api/order/cancel",
+      "description": "Cancel an order",
+      "request": {
+        "userId": "string",
+        "cancelReason": "Others|Changed plans|Wrong details",
+        "orderId": "string",
+        "otherReason": "string (optional)"
+      },
+      "response": {
+        "info": { "status": "success", "message": "Cancelled" }
+      }
+    },
+    "rider_eta": {
+      "method": "POST",
+      "endpoint": "/pwa/api/location/riderEta",
+      "description": "Get rider ETA and live location",
+      "request": {
+        "locations": [{ "lat": "number", "lng": "number" }],
+        "orderId": "string",
+        "serviceDetailId": "string",
+        "userId": "string",
+        "riderId": "string"
+      },
+      "response": {
+        "data": {
+          "etaInMinutes": "number",
+          "polyline": "encoded polyline",
+          "captain": {
+            "status": "string",
+            "location": { "lat": "number", "lng": "number" }
+          }
+        }
+      }
+    }
+  },
+  "wallet": {
+    "balance": {
+      "method": "POST",
+      "endpoint": "/pwa/api/wallet/balance",
+      "description": "Get wallet balance",
+      "request": {
+        "channelHost": "browser"
+      },
+      "response": {
+        "data": {
+          "wallets": [
+            {
+              "type": "rapido|paytm|phonepe",
+              "userId": "string",
+              "phoneNumber": "string",
+              "balance": "number",
+              "rapidoWalletBalance": "number"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "user": {
+    "status": {
+      "method": "POST",
+      "endpoint": "/pwa/api/user/customer/status",
+      "description": "Get user status and emergency number",
+      "request": {
+        "lat": "number",
+        "lng": "number",
+        "userId": "string"
+      },
+      "response": {
+        "data": {
+          "emergency_number": "string"
+        }
+      }
+    },
+    "captain_rating": {
+      "method": "GET",
+      "endpoint": "/pwa/api/captain/rating/{captainId}",
+      "description": "Get captain rating",
+      "response": {
+        "data": "number (0-5)"
+      }
+    }
+  },
+  "config": {
+    "app_config": {
+      "method": "GET",
+      "endpoint": "/pwa/api/appconfig",
+      "description": "Get app configuration",
+      "response": {
+        "homeScreenServices": {
+          "data": [
+            {
+              "displayName": "Bike|Auto|Cab",
+              "imageUrl": "URL"
+            }
+          ]
+        },
+        "sosNumber": {
+          "data": "emergency phone number"
+        }
+      }
+    }
+  },
+  "analytics": {
+    "event": {
+      "method": "POST",
+      "endpoint": "/pwa/api/event",
+      "description": "Track authenticated events",
+      "request": {
+        "identity": "userId",
+        "type": "event",
+        "evtName": "web_fareEstimate|web_reachedPhoneNumber",
+        "evtData": {
+          "timestamp": "ISO 8601",
+          "userId": "string",
+          "traceId": "UUID"
+        }
+      }
+    },
+    "unup_event": {
+      "method": "POST",
+      "endpoint": "/pwa/api/unup/event",
+      "description": "Track unauthenticated events",
+      "authenticated": false,
+      "request": {
+        "identity": "traceId",
+        "type": "event",
+        "evtName": "web_fareEstimate",
+        "evtData": {
+          "deviceid": "seo-route-pages",
+          "userId": "unup-user-id"
+        }
+      }
+    }
+  }
+}
