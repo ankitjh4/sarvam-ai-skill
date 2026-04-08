@@ -39,10 +39,10 @@ bun scripts/panchanga.ts \
 | Chart Interpretation | ✅ Implemented | `scripts/interpret-chart.ts` |
 | Panchanga (Almanac) | ✅ Implemented | `scripts/panchanga.ts` |
 | Quick Format | ✅ Implemented | `scripts/quick-format.py` |
-| Dasha Analysis | 🔜 Planned | `scripts/analyze-dasha.ts` |
-| Transit Analysis | 🔜 Planned | `scripts/transit.ts` |
-| Horary Charts | 🔜 Planned | `scripts/generate-horary.ts` |
-| Compatibility | 🔜 Planned | `scripts/compatibility.ts` |
+| Dasha Analysis | ✅ Implemented | `scripts/analyze-dasha.ts` |
+| Transit Analysis | ✅ Implemented | `scripts/transit.ts` |
+| Horary Charts | ✅ Implemented | `scripts/generate-horary.ts` |
+| Compatibility | ✅ Implemented | `scripts/compatibility.ts` |
 
 ## What's Included
 
