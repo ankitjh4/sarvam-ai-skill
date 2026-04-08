@@ -49,7 +49,7 @@ The scripts automatically install required libraries on first run:
 
 ```bash
 # Basic natal chart
-bun /home/workspace/Skills/vedic-astrology/scripts/generate-chart.ts \
+bun scripts/generate-chart.ts \
   --date "1990-07-15" \
   --time "14:30:00" \
   --lat 28.6139 \
@@ -75,7 +75,7 @@ bun /home/workspace/Skills/vedic-astrology/scripts/generate-chart.ts \
 
 ```bash
 # Question-based horary chart
-bun /home/workspace/Skills/vedic-astrology/scripts/generate-horary.ts \
+bun scripts/generate-horary.ts \
   --question "Will I get the job?" \
   --lat 19.0760 \
   --lon 72.8777 \
@@ -83,7 +83,7 @@ bun /home/workspace/Skills/vedic-astrology/scripts/generate-horary.ts \
   --place "Mumbai"
 
 # Uses current time or specify:
-bun /home/workspace/Skills/vedic-astrology/scripts/generate-horary.ts \
+bun scripts/generate-horary.ts \
   --question "Should I invest in this business?" \
   --date "2024-03-15" \
   --time "10:45:00" \
@@ -97,7 +97,7 @@ bun /home/workspace/Skills/vedic-astrology/scripts/generate-horary.ts \
 
 ```bash
 # Get detailed interpretation
-bun /home/workspace/Skills/vedic-astrology/scripts/interpret-chart.ts \
+bun scripts/interpret-chart.ts \
   --chart "Charts/sample-person-chart.json" \
   --focus "career" \
   --system "kp"
@@ -110,12 +110,12 @@ bun /home/workspace/Skills/vedic-astrology/scripts/interpret-chart.ts \
 
 ```bash
 # Current dasha period analysis
-bun /home/workspace/Skills/vedic-astrology/scripts/analyze-dasha.ts \
+bun scripts/analyze-dasha.ts \
   --chart "Charts/sample-person-chart.json" \
   --date "2024-03-15"
 
 # Get upcoming events
-bun /home/workspace/Skills/vedic-astrology/scripts/analyze-dasha.ts \
+bun scripts/analyze-dasha.ts \
   --chart "Charts/sample-person-chart.json" \
   --period "next-year"
 ```
@@ -124,13 +124,13 @@ bun /home/workspace/Skills/vedic-astrology/scripts/analyze-dasha.ts \
 
 ```bash
 # Today's panchanga
-bun /home/workspace/Skills/vedic-astrology/scripts/panchanga.ts \
+bun scripts/panchanga.ts \
   --lat 28.6139 \
   --lon 77.2090 \
   --tz 5.5
 
 # Specific date
-bun /home/workspace/Skills/vedic-astrology/scripts/panchanga.ts \
+bun scripts/panchanga.ts \
   --date "2024-04-15" \
   --lat 13.0827 \
   --lon 80.2707 \
@@ -142,11 +142,11 @@ bun /home/workspace/Skills/vedic-astrology/scripts/panchanga.ts \
 
 ```bash
 # Current planetary transits
-bun /home/workspace/Skills/vedic-astrology/scripts/transit.ts \
+bun scripts/transit.ts \
   --chart "Charts/sample-person-chart.json"
 
 # Future transit
-bun /home/workspace/Skills/vedic-astrology/scripts/transit.ts \
+bun scripts/transit.ts \
   --chart "Charts/sample-person-chart.json" \
   --date "2024-06-01"
 ```
@@ -155,7 +155,7 @@ bun /home/workspace/Skills/vedic-astrology/scripts/transit.ts \
 
 ```bash
 # Match two charts
-bun /home/workspace/Skills/vedic-astrology/scripts/compatibility.ts \
+bun scripts/compatibility.ts \
   --chart1 "Charts/person1-chart.json" \
   --chart2 "Charts/person2-chart.json"
 
@@ -394,7 +394,7 @@ Set these in [Settings > Advanced](/?t=settings&s=advanced) if needed:
 SWISSEPH_PATH="/custom/path/to/ephe"
 
 # Optional: Output directory
-ASTRO_CHARTS_DIR="/home/workspace/Charts"
+ASTRO_CHARTS_DIR="./Charts"
 ```
 
 ## Technical Details
